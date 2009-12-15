@@ -18,10 +18,11 @@ var xhr = new XMLHttpRequest();
 xhr.open("GET","http://www.google.com/bookmarks/?output=xml&num=10000",true);
 xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4){
+                  list = document.createElement('ul');
                   bookmarks = xhr.responseXML.documentElement.getElementsByTagName('bookmark')
                   for(var i=0; i < bookmarks.length; i++){
                     var bookmark = bookmarks[i];
-
+                    list_item = document.createElement('li');
                     bookmark_title = bookmark.childNodes[0].firstChild.nodeValue;
                     bookmark_url = bookmark.childNodes[1].firstChild.nodeValue;
 
@@ -32,9 +33,12 @@ xhr.onreadystatechange = function() {
                     bookmark_link.setAttribute('href',bookmark_url);
                     bookmark_link.setAttribute('onclick', open_bookmark_in_new_tab);
                     bookmark_link.appendChild(bookmark_link_text);
-                    paragraph.appendChild(bookmark_link);
-                    document.body.appendChild(paragraph);
+
+                    list_item.appendChild(bookmark_link);
+                    list.appendChild(list_item);
+
                   }
+                  document.body.appendChild(list);
                 }
 	    }
 xhr.send(null);
