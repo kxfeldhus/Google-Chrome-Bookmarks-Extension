@@ -1,0 +1,25 @@
+<style>
+body {
+  min-width:357px;
+  overflow-x:hidden;
+}
+
+img {
+  margin:5px;
+  border:2px solid black;
+  vertical-align:middle;
+  width:75px;
+  height:75px;
+}
+</style>
+
+<script>
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET","http://www.google.com/bookmarks/?output=xml&num=10000",true);
+xmlhttp.onreadystatechange = function() { 
+                if (xmlhttp.readyState == 4){
+	          alert(xmlhttp.responseXML.documentElement.getElementsByTagName('bookmark')[0].childNodes[1].firstChild);
+                }
+	    } 
+xmlhttp.send(null); 
+</script>
