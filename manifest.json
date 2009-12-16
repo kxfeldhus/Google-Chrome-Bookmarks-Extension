@@ -1,12 +1,13 @@
 {
   "name": "Google Bookmarks",
   "version": "1.0",
-  "description": "Read and display a popup of your Google Bookmarks.",
+  "description": "Sync your Google Bookmarks.",
   "browser_action": {
                     "default_icon": "icon.png",
-                    "popup": "popup.html"
+                    "popup": "gmarks_sync.html"
                     },
   "permissions": [
+                 "bookmarks",
                  "tabs",
                  "http://www.google.com/",
                  "https://www.google.com/"
