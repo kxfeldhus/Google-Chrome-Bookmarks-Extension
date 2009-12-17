@@ -21,6 +21,7 @@ xhr.onreadystatechange = function() {
                 }
 	    }
 xhr.send(null);
+getChromeBookmarks();
 
 
 function displayBookmarks(){
@@ -58,6 +59,28 @@ function createAllBookmarks(){
                     chrome.bookmarks.create({'parentId': '2', 'title': bookmark_title, 'url': bookmark_url});
                   }
 
+}
+
+function getChromeBookmarks(){
+  chrome.bookmarks.getTree(function(bookmarkTreeNode) {displayChromeBookmarks(bookmarkTreeNode)});
+}
+
+function displayChromeBookmarks(chromeBookmarks){
+  for(var i=0; i < chromeBookmarks.length; i++){
+    alert(chromeBookmarks[i].children[1].children[0].title);
+  }
+
+}
+
+function mergeBookmarks(chromeBookmarks, googleBookmarks){
+  for(var i=0; i < chromeBookmarks.length; i++){
+    for(var n=0; n < googleBookmarks.length; n++){
+      if(googleBookmarks['url'] == chromeBookmarks['url']){
+        chromeBookmarks.splice(i,1);
+      }
+    }
+  }
+  merged = chromeBookmarks.concat(googleBookmarks);
 }
 
 </script>
