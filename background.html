@@ -1,0 +1,159 @@
+<html>
+<head>
+<script>
+
+
+var chromeBookmarks = new Array();
+
+function setChromeBookmarks(bookmarks){
+    this.chromeBookmarks = bookmarks;
+}
+
+
+var googleBookmarks;
+
+function init(){
+    updateChromeBookmarks();
+    displayChromeBookmarks();
+    // getGoogleBookmarks(// );
+    // setChromeBookmarks();
+    // mergeBookmarks();
+    // getGoogleBookmarks();
+    // getAndMergeBookmarks();
+}
+
+function setGoogleBookmarks(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET","http://www.google.com/bookmarks/?output=xml&num=10000",true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4){
+            googleBookmarks = xhr.responseXML.documentElement.getElementsByTagName('bookmark');
+        };
+    };
+    xhr.send(null);
+}
+
+
+function updateChromeBookmarks(){
+    chrome.bookmarks.getTree(function(bookmarkTreeNode) {setChromeBookmarks(bookmarkTreeNode[0].children[1].children);});
+}
+
+
+function displayChromeBookmarks(){
+   console.log(chromeBookmarks);
+}
+
+function mergeBookmarks(){
+    // for(var i=0; i < chromeBookmarks.length; i++){
+    //     console.log(i);
+    //     for(var n=0; n < googleBookmarks.length; n++){
+    //         if(chromeBookmarks[i].url == googleBookmarks[n].url){
+    //             chromeBookmarks.splice(i,1);
+    //         }
+    //     }
+    // }
+}
+
+// function displayBookmarks(){
+//     list = document.createElement('ul');
+//     for(var i=0; i < bookmarks.length; i++){
+//         var bookmark = bookmarks[i];
+//         list_item = document.createElement('li');
+//         bookmark_title = bookmark.childNodes[0].firstChild.nodeValue;
+//         bookmark_url = bookmark.childNodes[1].firstChild.nodeValue;
+
+//         paragraph = document.createElement('p');
+//         bookmark_link = document.createElement('A');
+//         bookmark_link_text = document.createTextNode(bookmark_title);
+//         open_bookmark_in_new_tab = 'chrome.tabs.create({url:' + "'" +  bookmark_url + "'" + '})';
+
+//         bookmark_link.setAttribute('href',bookmark_url);
+//         bookmark_link.setAttribute('onclick', open_bookmark_in_new_tab);
+//         bookmark_link.appendChild(bookmark_link_text);
+
+//         list_item.appendChild(bookmark_link);
+//         list.appendChild(list_item);
+//     }
+//     document.body.appendChild(list);
+// }
+
+// function createAllMergedBookmarks(){
+//     for(var i=0; i < bookmarks.length; i++){
+//         var bookmark = bookmarks[i];
+
+//         bookmark_title = bookmark.childNodes[0].firstChild.nodeValue;
+//         bookmark_url = bookmark.childNodes[1].firstChild.nodeValue;
+
+//         chrome.bookmarks.create({'parentId': '2', 'title': bookmark_title, 'url': bookmark_url});
+//     }
+// }
+
+
+// function createAllBookmarks(bookmarks){
+//     for(var i=0; i < bookmarks.length; i++){
+//         var bookmark = bookmarks[i];
+
+//         bookmark_title = bookmark.childNodes[0].firstChild.nodeValue;
+//         bookmark_url = bookmark.childNodes[1].firstChild.nodeValue;
+
+//         chrome.bookmarks.create({'parentId': '2', 'title': bookmark_title, 'url': bookmark_url});
+//     }
+// }
+
+
+
+
+
+
+
+// function getAndMergeBookmarks(googleBookmarks){
+//     chrome.bookmarks.getTree(function(bookmarkTreeNode, googleBookmarks) {mergeBookmarks(bookmarkTreeNode, googleBookmarks);});
+// }
+
+// function displayChromeBookmarks(chromeBookmarks){
+//     for(var i=0; i < chromeBookmarks.length; i++){
+//         bookmarks = chromeBookmarks[i].children;
+//         for(var n=0; n < bookmarks[1].children.length; n++){
+//            // console.log(bookmarks[1].children[n]);
+//         }
+//     }
+//     return bookmarks[1].children;
+// }
+
+
+// function mergeBookmarks(){
+// //    console.log(googleBookmarks);
+//     // for(var i=0; i < chromeBookmarks.length; i++){
+//       for(var n=0; n < googleBookmarks.length; n++){
+//           bookmark_url = googleBookmarks[n].childNodes[1].firstChild.nodeValue;
+
+//        //    console.log(matches);
+// //           for(var i=0; i < matches.length; i++){
+// //               console.log(googleBookmarks[n]);
+// // //              googleBookmarks.splice(n,1);
+
+// //           }
+//     //         if(chromeBookmarks['url']){
+//     //             chromeBookmarks.splice(i,1);
+//     //         }
+//      }
+//     // }
+// //    merged = chromeBookmarks.concat(googleBookmarks);
+// }
+</script>
+
+    <style>
+    body {
+        min-width:200px;
+    }
+
+p {
+    margin:0px;
+}
+</style>
+    </head>
+    <body onload="init()">
+    <p><a href="#" onclick="displayBookmarks();">Display Bookmarks</a></p>
+    <p><a href="#" onclick="createAllBookmarks();">Create Bookmarks</a></p>
+    </body>
+    </html>

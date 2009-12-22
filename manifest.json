@@ -2,9 +2,11 @@
   "name": "Google Bookmarks",
   "version": "1.0",
   "description": "Sync your Google Bookmarks.",
+  "background_page": "background.html",
+  "icons": {"128": "icon.png"},
   "browser_action": {
-                    "default_icon": "icon.png",
-                    "popup": "gmarks_sync.html"
+                    "default_title": "",
+                    "default_icon": "icon.png"
                     },
   "permissions": [
                  "bookmarks",
